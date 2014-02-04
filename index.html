@@ -1,10 +1,190 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Budget Manager - Using Angular JS</title>
+    <meta charset="utf-8">
+    <title>Budget Manager</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="app/library/chart.min.js"></script>
 </head>
 <body>
-    Let's get party started
+<div class="wrap">
+    <section id="accounts">
+        <div class="section_title">Accounts</div>
+        <div class="section_content">
+            <ul class="accounts_list">
+                <li>
+                    <img src="i/icons/credit-card.png" alt="Credit cards" class="account_image">
+                    <div class="account_description">
+                        Credit cards
+                        <p>970.91<sup>&euro;</sup></p>
+                    </div>
+                </li>
+                <li>
+                    <img src="i/icons/cash.png" alt="Cash money" class="account_image">
+                    <div class="account_description">
+                        Cash money
+                        <p>17.75<sup>&euro;</sup></p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="income">
+        <div class="section_title">Income <span class="title_button title_button--plus" data-id="1_1">+</span> <span class="title_button title_button--show" data-id="1_2">show</span></div>
+        <div class="section_content section_content--padding">
+            <div class="compare">
+                <div class="last_month last_month--green">
+                    vs last month:
+                    <p>+0.00 <sup>&euro;</sup></p>
+                </div>
+                <div class="this_month">0.00<sup>&euro;</sup></div>
+            </div>
+            <div class="graph">
+                <canvas id="income_chart" width="268" height="130"></canvas>
+            </div>
+
+            <script>
+                var incomeChartData = {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [
+                        {
+                            fillColor : 'rgba(238,241,244,.5)',
+                            strokeColor : '#c4cedb',
+                            pointColor : '#ffba61',
+                            pointStrokeColor : '#fff',
+                            data : [
+                                '0',
+                                '0',
+                                '0',
+                                '0',
+                                '0',
+                                '0',
+                                '0',
+                                '0',
+                                '0',
+                                '0',
+                                '0',
+                                '0'
+                            ]
+                        }
+                    ]
+                }
+                var incomeChartBlock = document.getElementById('income_chart').getContext('2d');
+                var incomeChart = new Chart(incomeChartBlock).Line(incomeChartData);
+            </script>
+        </div>
+    </section>
+
+    <section id="spending">
+        <div class="section_title">Spending <span class="title_button title_button--plus" data-id="2_1">+</span> <span class="title_button title_button--show" data-id="2_2">show</span></div>
+        <div class="section_content section_content--padding">
+            <div class="compare">
+                <div class="last_month last_month--red">
+                    vs last month:
+                    <p>-0.00 <sup>&euro;</sup></p>
+                </div>
+                <div class="this_month">0.00<sup>&euro;</sup></div>
+            </div>
+            <div class="graph">
+                <canvas id="spending_chart" width="268" height="130"></canvas>
+            </div>
+
+            <script>
+                var spendingChartData = {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [
+                        {
+                            fillColor : 'rgba(238,241,244,.5)',
+                            strokeColor : '#c4cedb',
+                            pointColor : '#b34444',
+                            pointStrokeColor : '#fff',
+                            data : [
+                                '0',
+                                '0',
+                                '0',
+                                '0',
+                                '0',
+                                '0',
+                                '0',
+                                '0',
+                                '0',
+                                '0',
+                                '0',
+                                '0'
+                            ]
+                        }
+                    ]
+                }
+                var spendingChartBlock = document.getElementById('spending_chart').getContext('2d');
+                var spendingChart = new Chart(spendingChartBlock).Line(spendingChartData);
+            </script>
+        </div>
+    </section>
+
+    <section id="goals">
+        <div class="section_title">Goals <span class="title_button title_button--plus">+</span> <span class="title_button title_button--show" data-id="3_2">show</span></div>
+        <div class="section_content">
+            <ul class="goals_list">
+                <li>
+                    <div class="goal_details">
+                        <h3>Goal 1</h3>
+                        <p>About 1,800 months away</p>
+                    </div>
+                    <div class="goal_percent">
+                        0%
+                    </div>
+                </li>
+                <li>
+                    <div class="goal_details">
+                        <h3>Gola 2</h3>
+                        <p>About 4,800 months away</p>
+                    </div>
+                    <div class="goal_percent">
+                        0%
+                    </div>
+                </li>
+                <li>
+                    <div class="goal_details">
+                        <h3>Gold 3</h3>
+                        <p>About 7,800 months away</p>
+                    </div>
+                    <div class="goal_percent">
+                        0%
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="budget">
+        <div class="section_title">Budget</div>
+        <div class="section_content section_content--padding">
+            <div class="compare">
+                <div class="last_month last_month--green">
+                    you can spend:
+                    <p> 31.78<sup>€</sup> <span>/ day</span></p>
+                </div>
+                <div class="this_month">889.79<sup>€</sup></div>
+            </div>
+            <div class="budget_bar">
+                <div class="budget_bar_fill" style="width: 0%">
+                    <p>0.00€ spent</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="savings">
+        <div class="section_title">Savings rate</div>
+        <div class="section_content section_content--padding">
+            Your savings rate to income is
+            <h3>
+                100%
+            </h3>
+            <span>10% is set</span>
+        </div>
+    </section>
+</div>
 </body>
 </html>

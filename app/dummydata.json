@@ -1,0 +1,18 @@
+{
+    "accounts_list": [
+        {
+            "title":"Credit Card",
+            "icon":"images/icons/credit-card.png",
+            "amount":10
+        }, {
+            "title":"Cash Money",
+            "icon":"images/icons/cash.png",
+            "amount":20
+        },
+        {
+            "title":"Web Money",
+            "icon":"images/icons/cash.png",
+            "amount":30
+        }
+    ]
+}

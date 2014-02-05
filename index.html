@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="budgetApp">
 <head>
     <meta charset="utf-8">
     <title>Budget Manager</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-route.js"></script>
     <script src="app/library/chart.min.js"></script>
 </head>
 <body>
@@ -11,19 +13,12 @@
     <section id="accounts">
         <div class="section_title">Accounts</div>
         <div class="section_content">
-            <ul class="accounts_list">
-                <li>
-                    <img src="images/icons/credit-card.png" alt="Credit cards" class="account_image">
+            <ul class="accounts_list" ng-controller="accountsListRender">
+                <li ng-repeat="account in accountsList">
+                    <img src="{{ account.icon }}" alt="{{ account.title }}" class="account_image">
                     <div class="account_description">
-                        Credit cards
-                        <p>970.91<sup>&euro;</sup></p>
-                    </div>
-                </li>
-                <li>
-                    <img src="images/icons/cash.png" alt="Cash money" class="account_image">
-                    <div class="account_description">
-                        Cash money
-                        <p>17.75<sup>&euro;</sup></p>
+                        {{ account.title }}
+                        <p>{{ account.amount | currency:"€" }}</p>
                     </div>
                 </li>
             </ul>
@@ -186,5 +181,10 @@
         </div>
     </section>
 </div>
+
+<script src="app/budgetApp.js"></script>
+<script src="app/controllers/controllers.js"></script>
+<script src="app/factory/factory.js"></script>
+<script src="app/directives/directives.js"></script>
 </body>
 </html>

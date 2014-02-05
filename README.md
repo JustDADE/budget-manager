@@ -26,3 +26,7 @@ Let's end it by the end of this week, shall we?
 
 ### Saturday
 ???
+
+### Questions
+
+1. Is there any way to handle .success inside providers?

@@ -1,10 +1,36 @@
-budgetApp.factory('userData', function($http) {
-    var factory = {};
-    factory.getUserData = function() {
-        return $http.get('/budgetajs/app/dummydata.json');
-    }
-    return factory;
-});
+budgetApp.factory('userData', ['$http', '$q', function($http, $q) {
+    return {
+        getUserData : function(callback) {
+            $http.get('/budgetajs/app/dummydata.json').success(callback);
+        },
+        getEachMonthIncome : function() {
+            var amount = $q.defer();
+            this.getUserData(function(data) {
+                var incomeList = data.income_list;
+                var monthlyIncome = { '01' : 0, '02' : 0, '03' : 0, '04' : 0, '05' : 0, '06' : 0, '07' : 0, '08' : 0, '09' : 0, '10' : 0, '11' : 0, '12' : 0 }
+                angular.forEach(incomeList, function(income, idx) {
+                    var month = income.date.split('-')[1];
+                    monthlyIncome[month] = monthlyIncome[month] + income.amount;
+                });
+                amount.resolve(monthlyIncome);
+            });
+            return amount.promise;
+        },
+        getEachMonthSpending : function() {
+            var amount = $q.defer();
+            this.getUserData(function(data) {
+                var spendingList = data.spending_list;
+                var monthlySpending = { '01' : 0, '02' : 0, '03' : 0, '04' : 0, '05' : 0, '06' : 0, '07' : 0, '08' : 0, '09' : 0, '10' : 0, '11' : 0, '12' : 0 }
+                angular.forEach(spendingList, function(spending, idx) {
+                    var month = spending.date.split('-')[1];
+                    monthlySpending[month] = monthlySpending[month] + spending.amount;
+                });
+                amount.resolve(monthlySpending);
+            });
+            return amount.promise;
+        }
+    };
+}]);
 
 budgetApp.factory('graphUsage', ['graphConfig', function(graphConfig) {
     var factory = {};

@@ -1,59 +1,17 @@
-budgetApp.controller('accountsListRender', function($scope, userData) {
+budgetApp.controller('accountsListRender', ['$scope', 'userData', function($scope, userData) {
     $scope.accountsList = userData.getUserData().success(function(data) {
         $scope.accountsList = data.accounts_list;
     });
-});
+}]);
 
-budgetApp.controller('incomeRender', function($scope, userData) {
+budgetApp.controller('incomeRender', ['$scope', 'userData', 'graphUsage', function($scope, userData, graphUsage) {
     $scope.incomeThisMonth = 0;
     $scope.incomeLastMonth = 0;
 
-    $scope.incomeData = {
-        labels : [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ],
-        datasets : [
-        {
-            fillColor : 'rgba(238,241,244,.5)',
-            strokeColor : '#c4cedb',
-            pointColor : '#ffba61',
-            pointStrokeColor : '#fff',
-            data : [ 65, 59, 90, 81, 56, 55, 40]
-        }]
-    };
+    var graphData = graphUsage.createGraph([ 65, 59, 90, 81, 56, 55, 40], '#ffba61');
+    $scope.incomeData = graphData['data'];
+    $scope.incomeOptions = graphData['options'];
 
-    $scope.incomeOptions = {
-        fillColor : 'rgba(238,241,244,.5)',
-        strokeColor : '#c4cedb',
-        pointColor : '#ffba61',
-        pointStrokeColor : '#fff',
-        scaleOverlay : false,
-        scaleOverride : true,
-        scaleSteps : 8,
-        scaleStepWidth : 150,
-        scaleStartValue : null,
-        scaleLineColor : "rgba(0,0,0,.1)",
-        scaleLineWidth : 1,
-        scaleShowLabels : true,
-        scaleLabel : "<%=value%>",
-        scaleFontFamily : "'Arial'",
-        scaleFontSize : 9,
-        scaleFontStyle : "normal",
-        scaleFontColor : "#949494",
-        scaleShowGridLines : true,
-        scaleGridLineColor : "rgba(0,0,0,.05)",
-        scaleGridLineWidth : 1,
-        bezierCurve : true,
-        pointDot : true,
-        pointDotRadius : 4,
-        pointDotStrokeWidth : 2,
-        datasetStroke : true,
-        datasetStrokeWidth : 2,
-        datasetFill : true,
-        animation : true,
-        animationSteps : 60,
-        animationEasing : "easeOutQuart",
-        onAnimationComplete : null,
-        showTooltips : true
-    };
 
     $scope.incomeList = userData.getUserData().success(function(data) {
         var incomeList = data.income_list;
@@ -66,58 +24,15 @@ budgetApp.controller('incomeRender', function($scope, userData) {
             if (todayMonth-1 == incomeMonth) { $scope.incomeLastMonth = $scope.incomeLastMonth + income.amount; }
         });
     });
-});
+}]);
 
-budgetApp.controller('spendingRender', function($scope, userData) {
+budgetApp.controller('spendingRender', ['$scope', 'userData', 'graphUsage', function($scope, userData, graphUsage) {
     $scope.spendingThisMonth = 0;
     $scope.spendingLastMonth = 0;
 
-    $scope.spendingData = {
-        labels : [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ],
-        datasets : [
-            {
-                fillColor : 'rgba(238,241,244,.5)',
-                strokeColor : '#c4cedb',
-                pointColor : '#b34444',
-                pointStrokeColor : '#fff',
-                data : [ 65, 59, 90, 81, 56, 55, 40]
-            }]
-    };
-
-    $scope.spendingOptions = {
-        fillColor : 'rgba(238,241,244,.5)',
-        strokeColor : '#c4cedb',
-        pointColor : '#ffba61',
-        pointStrokeColor : '#fff',
-        scaleOverlay : false,
-        scaleOverride : true,
-        scaleSteps : 8,
-        scaleStepWidth : 150,
-        scaleStartValue : null,
-        scaleLineColor : "rgba(0,0,0,.1)",
-        scaleLineWidth : 1,
-        scaleShowLabels : true,
-        scaleLabel : "<%=value%>",
-        scaleFontFamily : "'Arial'",
-        scaleFontSize : 9,
-        scaleFontStyle : "normal",
-        scaleFontColor : "#949494",
-        scaleShowGridLines : true,
-        scaleGridLineColor : "rgba(0,0,0,.05)",
-        scaleGridLineWidth : 1,
-        bezierCurve : true,
-        pointDot : true,
-        pointDotRadius : 4,
-        pointDotStrokeWidth : 2,
-        datasetStroke : true,
-        datasetStrokeWidth : 2,
-        datasetFill : true,
-        animation : true,
-        animationSteps : 60,
-        animationEasing : "easeOutQuart",
-        onAnimationComplete : null,
-        showTooltips : true
-    };
+    var graphData = graphUsage.createGraph([ 65, 59, 90, 81, 56, 55, 40], '#b34444');
+    $scope.spendingData = graphData['data'];
+    $scope.spendingOptions = graphData['options'];
 
     $scope.spendingList = userData.getUserData().success(function(data) {
         var spendingList = data.spending_list;
@@ -130,4 +45,4 @@ budgetApp.controller('spendingRender', function($scope, userData) {
             if (todayMonth-1 == incomeMonth) { $scope.spendingLastMonth = $scope.spendingLastMonth + spending.amount; }
         });
     });
-});
+}]);

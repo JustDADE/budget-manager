@@ -64,5 +64,22 @@
             "amount" : 590,
             "date" : "2014-01-05"
         }
+    ],
+    "goals_list" : [
+        {
+            "title" : "iPad Air",
+            "amount" : 370,
+            "priority" : 1
+        },
+        {
+            "title" : "iPad Mini",
+            "amount" : 440,
+            "priority" : 2
+        },
+        {
+            "title" : "iPod Touch",
+            "amount" : 170,
+            "priority" : 3
+        }
     ]
 }

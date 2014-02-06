@@ -4,6 +4,7 @@ Budget Manager
 Budget Manager with AngularJS
 
 Let's end it by the end of this week, shall we?
+
 Latest demo: [http://dade.us/budgetajs/](http://dade.us/budgetajs/)
 
 ### Wednesday

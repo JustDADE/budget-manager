@@ -8,7 +8,7 @@ Let's end it by the end of this week, shall we?
 Latest demo: [http://dade.us/budgetajs/](http://dade.us/budgetajs/)
 
 ### Legend
-1. In Progres
+1. In Progress
 2. ~~Finished~~
 3. *Moved to other day*
 

@@ -4,6 +4,7 @@ Budget Manager
 Budget Manager with AngularJS
 
 Let's end it by the end of this week, shall we?
+Latest demo: [http://dade.us/budgetajs/](http://dade.us/budgetajs/)
 
 ### Wednesday
 1. ~~Accounts block~~
@@ -11,20 +12,22 @@ Let's end it by the end of this week, shall we?
 3. ~~Spendings block~~
 
 ### Thursday
-1. Goals
-2. Budget
-3. Savings Rate
-4. Fill Income graph with dummy data
-5. Fill Spending graph with dummy data
+1. *Goals*
+2. *Budget*
+3. *Savings Rate*
+4. ~~Fill Income graph with dummy data~~
+5. ~~Fill Spending graph with dummy data~~
 
 ### Friday
 1. Income block
   1. Add/Remove/Edit data
   2. Full list of data with pagination
-
-1. Spendings block
+2. Spendings block
   1. Add/Remove/Edit data
   2. Full list of data with pagination
+3. Goals
+4. Budget
+5. Savings Rate
 
 ### Saturday
 ???

@@ -52,5 +52,5 @@ budgetApp.controller('spendingRender', ['$scope', 'userData', 'graphUsage', func
             if (todayMonth-1 == incomeMonth) { $scope.spendingLastMonth = $scope.spendingLastMonth + spending.amount; }
         });
     });
-    
+
 }]);

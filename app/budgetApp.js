@@ -1,1 +1,1 @@
-var budgetApp = angular.module('budgetApp', ['ngRoute']);
+var budgetApp = angular.module('budgetApp', ['ngRoute', 'tc.chartjs']);

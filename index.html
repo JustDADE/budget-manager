@@ -6,14 +6,17 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-route.js"></script>
-    <script src="app/library/chart.min.js"></script>
+    <script src="app/library/Chart.js"></script>
+    <script src="app/library/tc-angular-chartjs.min.js"></script>
 </head>
 <body>
+<a href="https://github.com/JustDADE/budget-manager"><img style="z-index:9999;position: fixed; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+
 <div class="wrap">
-    <section id="accounts">
+    <section id="accounts" ng-controller="accountsListRender">
         <div class="section_title">Accounts</div>
         <div class="section_content">
-            <ul class="accounts_list" ng-controller="accountsListRender">
+            <ul class="accounts_list">
                 <li ng-repeat="account in accountsList">
                     <img src="{{ account.icon }}" alt="{{ account.title }}" class="account_image">
                     <div class="account_description">
@@ -25,94 +28,38 @@
         </div>
     </section>
 
-    <section id="income">
+    <section id="income" ng-controller="incomeRender">
         <div class="section_title">Income <span class="title_button title_button--plus" data-id="1_1">+</span> <span class="title_button title_button--show" data-id="1_2">show</span></div>
         <div class="section_content section_content--padding">
             <div class="compare">
                 <div class="last_month last_month--green">
                     vs last month:
-                    <p>+0.00 <sup>&euro;</sup></p>
+                    <p>{{ incomeLastMonth | currency:"€" }}</p>
                 </div>
-                <div class="this_month">0.00<sup>&euro;</sup></div>
+                <div class="this_month">{{ incomeThisMonth | currency:"€" }}</div>
             </div>
             <div class="graph">
-                <canvas id="income_chart" width="268" height="130"></canvas>
+                <canvas tc-chartjs-line chart-data="incomeData" chart-options="incomeOptions" width="268" height="130"></canvas>
             </div>
-
-            <script>
-                var incomeChartData = {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                    datasets: [
-                        {
-                            fillColor : 'rgba(238,241,244,.5)',
-                            strokeColor : '#c4cedb',
-                            pointColor : '#ffba61',
-                            pointStrokeColor : '#fff',
-                            data : [
-                                '0',
-                                '0',
-                                '0',
-                                '0',
-                                '0',
-                                '0',
-                                '0',
-                                '0',
-                                '0',
-                                '0',
-                                '0',
-                                '0'
-                            ]
-                        }
-                    ]
-                }
-                var incomeChartBlock = document.getElementById('income_chart').getContext('2d');
-                var incomeChart = new Chart(incomeChartBlock).Line(incomeChartData);
-            </script>
         </div>
     </section>
 
-    <section id="spending">
+    <section id="spending" ng-controller="spendingRender">
         <div class="section_title">Spending <span class="title_button title_button--plus" data-id="2_1">+</span> <span class="title_button title_button--show" data-id="2_2">show</span></div>
         <div class="section_content section_content--padding">
             <div class="compare">
                 <div class="last_month last_month--red">
                     vs last month:
-                    <p>-0.00 <sup>&euro;</sup></p>
+                    <p>-{{ spendingLastMonth | currency:"€" }}</p>
                 </div>
-                <div class="this_month">0.00<sup>&euro;</sup></div>
+                <div class="this_month">{{ spendingThisMonth | currency:"€" }}</div>
             </div>
             <div class="graph">
-                <canvas id="spending_chart" width="268" height="130"></canvas>
+                <canvas tc-chartjs-line chart-data="spendingData" chart-options="spendingOptions" width="268" height="130"></canvas>
             </div>
 
             <script>
-                var spendingChartData = {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                    datasets: [
-                        {
-                            fillColor : 'rgba(238,241,244,.5)',
-                            strokeColor : '#c4cedb',
-                            pointColor : '#b34444',
-                            pointStrokeColor : '#fff',
-                            data : [
-                                '0',
-                                '0',
-                                '0',
-                                '0',
-                                '0',
-                                '0',
-                                '0',
-                                '0',
-                                '0',
-                                '0',
-                                '0',
-                                '0'
-                            ]
-                        }
-                    ]
-                }
-                var spendingChartBlock = document.getElementById('spending_chart').getContext('2d');
-                var spendingChart = new Chart(spendingChartBlock).Line(spendingChartData);
+
             </script>
         </div>
     </section>

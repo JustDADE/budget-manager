@@ -7,6 +7,11 @@ Let's end it by the end of this week, shall we?
 
 Latest demo: [http://dade.us/budgetajs/](http://dade.us/budgetajs/)
 
+### Legend
+1. In Progres
+2. ~~Finished~~
+3. *Moved to other day*
+
 ### Wednesday
 1. ~~Accounts block~~
 2. ~~Income block~~
@@ -36,3 +41,5 @@ Latest demo: [http://dade.us/budgetajs/](http://dade.us/budgetajs/)
 ### Questions
 
 1. Is there any way to handle .success inside providers?
+
+

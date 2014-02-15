@@ -20,9 +20,8 @@ budgetApp.controller('incomeRender', ['$scope', 'userData', 'graphUsage', functi
     userData.getUserData(function(data) {
        var incomeList = data.income_list;
         angular.forEach(incomeList, function(income, idx) {
-            var todayMonth = new Date().getMonth()+1;
-            var incomeMonth = income.date.split('-')[1];
-            if (todayMonth < 10) { todayMonth = '0'+todayMonth; }
+            var todayMonth = moment().month();
+            var incomeMonth = moment(income['date'], 'YYYY-MM-DD').month();
             if (todayMonth == incomeMonth) { $scope.incomeThisMonth = $scope.incomeThisMonth + income.amount; }
             if (todayMonth-1 == incomeMonth) { $scope.incomeLastMonth = $scope.incomeLastMonth + income.amount; }
         });
@@ -45,9 +44,8 @@ budgetApp.controller('spendingRender', ['$scope', 'userData', 'graphUsage', func
     userData.getUserData(function(data) {
         var spendingList = data.spending_list;
         angular.forEach(spendingList, function(spending, idx) {
-            var todayMonth = new Date().getMonth()+1;
-            var incomeMonth = spending.date.split('-')[1];
-            if (todayMonth < 10) { todayMonth = '0'+todayMonth; }
+            var todayMonth = moment().month();
+            var incomeMonth = moment(spending['date'], 'YYYY-MM-DD').month();
             if (todayMonth == incomeMonth) { $scope.spendingThisMonth = $scope.spendingThisMonth + spending.amount; }
             if (todayMonth-1 == incomeMonth) { $scope.spendingLastMonth = $scope.spendingLastMonth + spending.amount; }
         });

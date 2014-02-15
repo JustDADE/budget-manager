@@ -28,6 +28,23 @@ budgetApp.factory('userData', ['$http', '$q', function($http, $q) {
                 amount.resolve(monthlySpending);
             });
             return amount.promise;
+        },
+        getCurrentMonthSpending: function() {
+            var amount = $q.defer();
+            this.getUserData(function(data) {
+                var spendingList = data.spending_list;
+                var spendingThisMonth = 0;
+                angular.forEach(spendingList, function(idx) {
+                    var currentMonth = moment().month();
+                    var spendingMonth = moment(idx['date'], 'YYYY-MM-DD').month();
+
+                    if (currentMonth == spendingMonth) {
+                        spendingThisMonth = spendingThisMonth + idx['amount'];
+                    }
+                });
+                amount.resolve(spendingThisMonth);
+            });
+            return amount.promise;
         }
     };
 }]);

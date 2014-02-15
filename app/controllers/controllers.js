@@ -54,3 +54,33 @@ budgetApp.controller('spendingRender', ['$scope', 'userData', 'graphUsage', func
     });
 
 }]);
+
+budgetApp.controller('budgetRender', ['$scope', 'userData', function($scope, userData) {
+    $scope.spendingThisMonth = 0;
+
+    /* Getting Total Budget */
+    userData.getUserData(function(data) {
+        var accountsList = data.accounts_list;
+        var totalBudget = 0;
+        angular.forEach(accountsList, function(idx) {
+            totalBudget = totalBudget + idx['amount'];
+        });
+        $scope.totalBudget = totalBudget;
+
+        // Can spend per day till end of the month
+        var daysLeft = moment().daysInMonth() - moment().date();
+        $scope.perDay = $scope.totalBudget / daysLeft;
+
+
+        // Current Month Spending
+        userData.getCurrentMonthSpending().then(function(data) {
+            $scope.spendingThisMonth = data;
+            // Spending in %
+            var thisMonthTotal = $scope.totalBudget + $scope.spendingThisMonth;
+            var thisMonthSpendingInPercent = Math.round($scope.spendingThisMonth / (thisMonthTotal / 100));
+            $scope.setBarPercent = { width: thisMonthSpendingInPercent+'%' };
+        });
+
+    });
+
+}]);

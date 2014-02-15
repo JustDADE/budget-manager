@@ -78,7 +78,16 @@ budgetApp.controller('budgetRender', ['$scope', 'userData', function($scope, use
             var thisMonthSpendingInPercent = Math.round($scope.spendingThisMonth / (thisMonthTotal / 100));
             $scope.setBarPercent = { width: thisMonthSpendingInPercent+'%' };
         });
-
     });
+}]);
 
+budgetApp.controller('savingsRender', ['$scope', 'userData', function($scope, userData) {
+    $scope.savingsRate = 0;
+    userData.getCurrentMonthIncome().then(function(data) {
+        var currentMonthIncome = data;
+        userData.getCurrentMonthSpending().then(function(data) {
+            var currentMonthSpending = data;
+            $scope.savingsRate = 100 - Math.round(currentMonthSpending / (currentMonthIncome / 100));
+        });
+    });
 }]);

@@ -118,14 +118,14 @@
         </div>
     </section>
 
-    <section id="savings">
+    <section id="savings" ng-controller="savingsRender">
         <div class="section_title">Savings rate</div>
         <div class="section_content section_content--padding">
             Your savings rate to income is
             <h3>
-                100%
+                {{ savingsRate }}%
             </h3>
-            <span>10% is set</span>
+            <span>10% is recommended</span>
         </div>
     </section>
 </div>

@@ -29,6 +29,23 @@ budgetApp.factory('userData', ['$http', '$q', function($http, $q) {
             });
             return amount.promise;
         },
+        getCurrentMonthIncome: function() {
+            var amount = $q.defer();
+            this.getUserData(function(data) {
+                var incomeList = data.income_list;
+                var incomeThisMonth = 0;
+                angular.forEach(incomeList, function(idx) {
+                    var currentMonth = moment().month();
+                    var incomeMonth = moment(idx['date'], 'YYYY-MM-DD').month();
+
+                    if (currentMonth == incomeMonth) {
+                        incomeThisMonth = incomeThisMonth + idx['amount'];
+                    }
+                });
+                amount.resolve(incomeThisMonth);
+            });
+            return amount.promise;
+        },
         getCurrentMonthSpending: function() {
             var amount = $q.defer();
             this.getUserData(function(data) {

@@ -11,10 +11,13 @@ Latest demo: [http://dade.us/budgetajs/](http://dade.us/budgetajs/)
 3. Spendings block finished
 4. Income graph filled with dummy data
 5. Spending graph filled with dummy data
+6. Budget block finished
+7. I'm using moment.js library now for all data manipulations.
 
-### News - 15.02.2014
-1. Budget block finished
-2. I'm using moment.js library now for all data manipulations
+
+### News - 25.02.2014
+1. Spendings Rate block finished
+2. Goals block finished
 
 ### Questions
 

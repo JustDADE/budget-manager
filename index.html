@@ -65,35 +65,17 @@
         </div>
     </section>
 
-    <section id="goals">
+    <section id="goals" ng-controller="goalsRender">
         <div class="section_title">Goals <span class="title_button title_button--plus">+</span> <span class="title_button title_button--show" data-id="3_2">show</span></div>
         <div class="section_content">
             <ul class="goals_list">
-                <li>
+                <li ng-repeat="goal in goalsList | orderBy:goalsPriority">
                     <div class="goal_details">
-                        <h3>Goal 1</h3>
-                        <p>About 1,800 months away</p>
+                        <h3>{{ goal.title }}</h3>
+                        <p>{{ goal.time }}</p>
                     </div>
                     <div class="goal_percent">
-                        0%
-                    </div>
-                </li>
-                <li>
-                    <div class="goal_details">
-                        <h3>Gola 2</h3>
-                        <p>About 4,800 months away</p>
-                    </div>
-                    <div class="goal_percent">
-                        0%
-                    </div>
-                </li>
-                <li>
-                    <div class="goal_details">
-                        <h3>Gold 3</h3>
-                        <p>About 7,800 months away</p>
-                    </div>
-                    <div class="goal_percent">
-                        0%
+                        {{ goal.percent }}%
                     </div>
                 </li>
             </ul>

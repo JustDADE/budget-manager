@@ -3,6 +3,18 @@ budgetApp.factory('userData', ['$http', '$q', function($http, $q) {
         getUserData : function(callback) {
             $http.get('/budgetajs/app/dummydata.json').success(callback);
         },
+        getUserBudet: function() {
+            var amount = $q.defer();
+            this.getUserData(function(data) {
+                var accountsList = data.accounts_list;
+                var budget = 0;
+                angular.forEach(accountsList, function(idx) {
+                    budget = budget + idx['amount'];
+                });
+                amount.resolve(budget);
+            });
+            return amount.promise;
+        },
         getEachMonthIncome : function() {
             var amount = $q.defer();
             this.getUserData(function(data) {
@@ -62,6 +74,61 @@ budgetApp.factory('userData', ['$http', '$q', function($http, $q) {
                 amount.resolve(spendingThisMonth);
             });
             return amount.promise;
+        },
+        getUserGoals: function() {
+            var goals = $q.defer();
+            this.getUserData(function(data) {
+               var goalsList = data.goals_list;
+               goals.resolve(goalsList);
+            });
+            return goals.promise;
+        },
+        getGoalETA: function(goalID) {
+            var _self = this;
+            var eta = $q.defer();
+            this.getUserGoals().then(function(data) {
+                var goalsList = data;
+                var goal = data[goalID];
+                _self.getUserBudet().then(function(data) {
+                    var budget = data; // 2740
+                    var months = 0;
+                    // Budget - Goal Amount = priority 1 goal.
+                     _self.getUserBudet().then(function(budget) {
+                        // current month income
+                        // var income;
+                        var moneyBefore = 0;
+                        angular.forEach(goalsList, function(idx) {
+                            if (idx.priority <= goal.priority) {
+                                moneyBefore = moneyBefore + idx.amount;
+                            }
+                        });
+                        // Need to spend before
+                        // var moneyBefore;
+                        if (budget - moneyBefore > 0) {
+                            eta.resolve(0);
+                        } else {
+                            _self.getCurrentMonthIncome().then(function(income) {
+                                var months = Math.ceil(-(income - moneyBefore) / income)+1;
+                                eta.resolve(months);
+                            });
+                        }
+                    });
+                });
+            });
+            return eta.promise;
+        },
+        getCurrentSavingsRate: function() {
+            var _this = this;
+            var savingsRate = $q.defer();
+            this.getCurrentMonthIncome().then(function(data) {
+                var currentMonthIncome = data;
+                _this.getCurrentMonthSpending().then(function(data) {
+                    var currentMonthSpending = data;
+                    var sRate = 100 - Math.round(currentMonthSpending / (currentMonthIncome / 100));
+                    savingsRate.resolve(sRate);
+                });
+            });
+            return savingsRate.promise;
         }
     };
 }]);

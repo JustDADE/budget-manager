@@ -8,7 +8,7 @@
         {
             "title":"Cash Money",
             "icon":"images/icons/cash.png",
-            "amount":140
+            "amount":100
         },
         {
             "title":"Web Money",
@@ -88,7 +88,7 @@
         },
         {
             "title" : "iPod Touch",
-            "amount" : 170,
+            "amount" : 9700,
             "priority" : 3
         }
     ]

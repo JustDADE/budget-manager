@@ -53,6 +53,37 @@ budgetApp.controller('spendingRender', ['$scope', 'userData', 'graphUsage', func
 
 }]);
 
+budgetApp.controller('goalsRender', ['$scope', 'userData', function($scope, userData) {
+    userData.getUserGoals().then(function(data) {
+        $scope.goalsList = data;
+        $scope.goalsPriority = 'priority';
+        angular.forEach($scope.goalsList, function(idx, e) {
+            var goalETA = userData.getGoalETA(e).then(function(data) {
+                var eta = data;
+                userData.getCurrentMonthIncome().then(function(data) {
+                    if (eta == 0) {
+                        $scope.goalsList[e].percent = 100;
+                        $scope.goalsList[e].time = 'Now';
+                    } else if (eta == 1) {
+                        var percent = data / ($scope.goalsList[e].amount / 100);
+                        if (percent >= 100) { percent = 100; }
+                        else { percent = Math.floor(percent); }
+                        $scope.goalsList[e].percent = percent;
+                        $scope.goalsList[e].time = 'Next month';
+                    } else {
+                        var percent = data / ($scope.goalsList[e].amount / 100);
+                        if (percent >= 100) { percent = 100; }
+                        else { percent = Math.floor(percent); }
+                        $scope.goalsList[e].percent = percent;
+                        $scope.goalsList[e].time = 'About '+eta+' months';
+                    }
+                });
+            });
+        });
+    });
+
+}]);
+
 budgetApp.controller('budgetRender', ['$scope', 'userData', function($scope, userData) {
     $scope.spendingThisMonth = 0;
 
@@ -69,7 +100,8 @@ budgetApp.controller('budgetRender', ['$scope', 'userData', function($scope, use
         var daysLeft = moment().daysInMonth() - moment().date();
         $scope.perDay = $scope.totalBudget / daysLeft;
 
-
+        $scope.test = userData.getCurrentMonthIncome();
+        console.log('Scope test' + $scope.test);
         // Current Month Spending
         userData.getCurrentMonthSpending().then(function(data) {
             $scope.spendingThisMonth = data;
@@ -83,11 +115,7 @@ budgetApp.controller('budgetRender', ['$scope', 'userData', function($scope, use
 
 budgetApp.controller('savingsRender', ['$scope', 'userData', function($scope, userData) {
     $scope.savingsRate = 0;
-    userData.getCurrentMonthIncome().then(function(data) {
-        var currentMonthIncome = data;
-        userData.getCurrentMonthSpending().then(function(data) {
-            var currentMonthSpending = data;
-            $scope.savingsRate = 100 - Math.round(currentMonthSpending / (currentMonthIncome / 100));
-        });
+    userData.getCurrentSavingsRate().then(function(data) {
+       $scope.savingsRate = data;
     });
 }]);

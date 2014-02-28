@@ -101,7 +101,6 @@ budgetApp.controller('budgetRender', ['$scope', 'userData', function($scope, use
         $scope.perDay = $scope.totalBudget / daysLeft;
 
         $scope.test = userData.getCurrentMonthIncome();
-        console.log('Scope test' + $scope.test);
         // Current Month Spending
         userData.getCurrentMonthSpending().then(function(data) {
             $scope.spendingThisMonth = data;
@@ -113,9 +112,15 @@ budgetApp.controller('budgetRender', ['$scope', 'userData', function($scope, use
     });
 }]);
 
-budgetApp.controller('savingsRender', ['$scope', 'userData', function($scope, userData) {
+budgetApp.controller('savingsRender', ['$scope', 'userData', 'modalBox', function($scope, userData, modalBox) {
     $scope.savingsRate = 0;
     userData.getCurrentSavingsRate().then(function(data) {
        $scope.savingsRate = data;
     });
+
+    $scope.modalBox = function (id) {
+        $('#modalBox').show();
+        $('.modalBox .section_title').html(title);
+        $('.modalBox .section_content').html('Love me tomorrow');
+    }
 }]);

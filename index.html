@@ -107,10 +107,21 @@
             <h3>
                 {{ savingsRate }}%
             </h3>
-            <span>10% is recommended</span>
+            <span ng-click="modalBox(1)">10% is recommended</span>
         </div>
     </section>
 </div>
+
+<div id="modalBox" ng-show="showDetails">
+    <div class="modalBox_bg"></div>
+    <section class="modalBox">
+        <div class="section_title">Modal Box</div>
+        <div class="section_content section_content--padding">
+            Modal Box Content
+        </div>
+    </section>
+</div>
+
 
 <script src="app/budgetApp.js"></script>
 <script src="app/controllers/controllers.js"></script>

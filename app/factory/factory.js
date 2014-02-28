@@ -155,6 +155,14 @@ budgetApp.factory('graphUsage', ['graphConfig', function(graphConfig) {
 
 }]);
 
+budgetApp.factory('modalBox', ['$http', '$q', function($http, $q) {
+    var factory = {};
+    factory.createBox = function(something) {
+        return something;
+    }
+    return factory;
+}]);
+
 budgetApp.constant('graphConfig', {
        fillColor : 'rgba(238,241,244,.5)',
        strokeColor : '#c4cedb',

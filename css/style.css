@@ -330,3 +330,30 @@ html {
 		color: #474747;
 		font-size: 11px;
 	}
+
+#modalBox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+    .modalBox_bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255,255,255,.8);
+    }
+
+    .modalBox {
+        position: fixed;
+        width: 50%;
+        left: 25%;
+        top: 20%;
+    }
+
+        .modalBox .section_content {
+            background: #fff;
+        }
